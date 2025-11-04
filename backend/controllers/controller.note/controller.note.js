@@ -19,6 +19,7 @@ const getNoteById = async (req,res) =>  {
         res.status(500).json({err});
     }
 }
+
 const createNote = async (req,res) => {
     try{
         const id = req.params.id
@@ -33,7 +34,10 @@ const createNote = async (req,res) => {
 const deleteNote = async (req,res) => {
     try{
         const id = req.params.id;
-        await Note.Delete(id);
+        const result = await Note.Delete(id);
+        if(!result){
+            res.status(404).json({message:"etudiant non trouve"})
+        }
         res.status(200).json({message:"note supprimée avec success"});
     }catch(err){
         res.status(500).json({err});
@@ -44,6 +48,9 @@ const editNote = async (req,res) => {
         const id = req.params.id
         const {note, id_etudiant, id_matiere} = req.body;
         const noteEdit = Note.Edit(id,{note, id_etudiant, id_matiere});
+        if(!noteEdit){
+            res.status(404).json({message:"etudiant non trouve",noteEdit})
+        }
         res.status(200).json({message:"note modidié avec success"});
     }catch(err){
         res.status(500).json({err});

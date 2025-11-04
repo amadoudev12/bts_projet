@@ -5,6 +5,8 @@ import React from 'react'
 
 const AjouterEtudiant = lazy(()=> import('./pages/ajouterEtudiant'))
 const ListeEtudiant = lazy(()=> import('./pages/etudiantList'))
+const NotesPost = lazy(()=> import('./pages/notesPost'))
+const ConsultationEtudiant = lazy(()=> import('./pages/consultationEtudiant'))
 
 export default function AppRoutes() {
   return (
@@ -12,6 +14,8 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/etudiants" element={<ListeEtudiant/>}/>
             <Route path="/etudiant/add" element={<AjouterEtudiant/>}/>
+            <Route path="/etudiant/note/add/:id" element={<NotesPost/>}/>
+            <Route path="/" element={<ConsultationEtudiant/>}/>
         </Routes>
     </Suspense>
   )

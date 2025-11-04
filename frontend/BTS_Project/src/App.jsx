@@ -7,10 +7,11 @@ function App() {
 
   return (
     <>
-      <nav>
+      {/* <nav>
         <Link to="/etudiant/add">Ajouter un etudiant</Link>
         <Link to="/etudiants">Voir la liste des etudiants</Link>
-      </nav>
+        <Link to="/etudiant/consultation">Consulter</Link>
+      </nav> */}
       <AppRoutes/>
     </>
   )

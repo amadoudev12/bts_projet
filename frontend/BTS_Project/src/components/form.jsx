@@ -1,34 +1,36 @@
 import {useForm} from "react-hook-form"
-import {z} from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 import etudiantService from "../api/etudiantService";
-// type filiere = {
-//     id:Number,
-//     nom_filiere: String
-// }
-const zodSchema = z.object({
-  nom: z.string().max(100,'veuillez saisir un nom  valide'),
-  prenom: z.string().max(100,'veuillez saisir un prenom valide'),
-  date_naissance: z.string().max(10,'veuillez saisir une date de naissance valide'),
-  sexe: z.string().max(25,'veuillez saisir un sexe valide'),
-  id_filiere: z.preprocess (
-    (val) => Number(val),
-    z.number().max(100,'choisir une filiere valide')
-  )
-})
-export default function Form({filieres}) {
+import zodSchema from "../schema/etudiantShema";
+import { useEffect, useState } from "react";
+import filiereService from "../api/filiereService";
+
+export default function Form() {
+    const [filieres, setFilieres] = useState([])
+    //recuperation des filiere
+    useEffect(()=> {
+        filiereService.getAll()
+        .then(res => res.data)
+        .then((data) => {
+        console.log('les données du backEnd:',data.result);
+        setFilieres(data.result)
+        })
+        .catch(err => console.log(err))
+    },[])
     const {
         register,
         handleSubmit,
         reset,
-        formState : {errors}
+        formState : {errors},
     } = useForm({
-        resolver: zodResolver(zodSchema)
+      resolver: zodResolver(zodSchema)
     })
     const onSubmit = async (data) => {
       try{
-        const res =  await etudiantService.Post(data)
-        console.log(res.data);
+        console.log( 'les données chargés', data);
+          console.log(data)
+          const res =  await etudiantService.Post(data)
+          console.log(res.data);
         reset()
       }catch(err){
         console.log(err);
@@ -141,7 +143,8 @@ export default function Form({filieres}) {
                           className="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                           placeholder="filiere"
                     >
-                        {
+                        <option value="">selectionner une filiere</option>   
+                        {    
                             filieres.map((filiere,index) =>(
                                 <option key={index} value={filiere.id_filiere}>{filiere.nom_filiere}</option>
                             ))
@@ -156,7 +159,7 @@ export default function Form({filieres}) {
                     type="submit"
                     className="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
                   >
-                    Create
+                    Creer un etudiant
                   </button>
                 </div>
               </div>

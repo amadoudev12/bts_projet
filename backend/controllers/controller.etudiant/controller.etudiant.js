@@ -13,12 +13,25 @@ const getStudents = async (req,res)=>{
 const getStudent = async (req,res)=>{
     try{
         const id = req.params.id;
-        const student = await Etudiant.getStudent(id);
-        const studentDetail = student.result[0];
-        const noteStudent = student.noteStudent;
+        if(!id){
+            res.json({message: "entrez l'id"})
+        }
+        const studentGet = await Etudiant.getStudent(id);
+        if (!studentGet || !studentGet.student) {
+            console.log("Étudiant non trouvé");
+            return res.status(404).json({ 
+                message: "Étudiant non trouvé" 
+            });
+        }
+        const noteStudent = studentGet.noteStudent;
         const moyenneStudent = monyenne(noteStudent);
         const admis = admisibility(moyenneStudent)
-        res.status(200).json({student:studentDetail,moyenne: moyenneStudent, admis:admis});
+        console.log(studentGet.student);
+        res.status(200).json({
+            student:studentGet.student,
+            moyenne: moyenneStudent,
+            admis:admis
+        });
     }catch(err){
         console.log(err);
         res.status(500).json({message:"erreur au niveau de la base",err});
@@ -26,6 +39,10 @@ const getStudent = async (req,res)=>{
 }
 const createStudent = async (req,res) => {
     try { 
+        if(!req.body){
+            console.log('le body est vide');
+            res.json({message:"veuillez remplir les champ"})
+        }
         const {nom, prenom, date_naissance, sexe, id_filiere} = req.body;
         const newStudent = await Etudiant.Create({nom, prenom, date_naissance, sexe, id_filiere});
         res.status(201).json({message:'etudiant crée avec succes',newStudent});
@@ -38,7 +55,14 @@ const createStudent = async (req,res) => {
 const deleteStudent = async (req,res) => {
     try{
         const id = req.params.id;
-        await Etudiant.Delete(id);
+        if(!id){
+            res.json({message:"l'id manque"})
+        }
+        const suppression = await Etudiant.Delete(id);
+        if(!suppression){
+            console.log("etudiant non trouve");
+            res.status(404).json({message:"etudiant non trouvé"})
+        }
         res.status(200).json({message:"etudiant supprime avec succes"});
     }catch(err){
         console.log(err);
@@ -47,9 +71,13 @@ const deleteStudent = async (req,res) => {
 }
 const editStudent = async (req,res) => {
     try{
-        const {nom, prenom, sexe, id_filiere} = req.body;
+        const {nom, prenom, date_naissance, sexe, id_filiere} = req.body;
         const id = req.params.id;
-        await Etudiant.Edit(id,{nom, prenom, sexe, id_filiere});
+        const modification = await Etudiant.Edit(id,{nom, prenom, date_naissance, sexe, id_filiere});
+        if(!modification){
+            console.log('etudiant non trouvé');
+            res.status(404).json({message:"etudiant non trové"})
+        }
         res.status(200).json({message:"etudiant modifié avec succes"});
     }catch(err){
         console.log(err);

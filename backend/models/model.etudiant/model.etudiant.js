@@ -13,11 +13,17 @@ class Etudiant {
    }
    static async  getStudent(id) {
       try {
-         const sql = "SELECT * FROM etudiant WHERE id_etudiant = ?";
-         const studentNoteRequest = "SELECT note.note, matiere.coeficient FROM matiere LEFT JOIN note ON note.id_matiere = matiere.id_matiere WHERE id_etudiant = ?";
+         const sql = "SELECT * FROM etudiant LEFT JOIN filiere ON filiere.id_filiere = etudiant.id_filiere WHERE id_etudiant = ?";
+         const studentNoteRequest = "SELECT note.note, matiere.coefficient FROM matiere LEFT JOIN note ON note.id_matiere = matiere.id_matiere WHERE id_etudiant = ?";
          const [noteStudent] = await db.query(studentNoteRequest,[id])
          const [result] = await db.query(sql, [id]);
-         return {result,noteStudent};
+         if(result.length === 0){
+            return null
+         }
+         return {
+            student : result[0],
+            noteStudent: noteStudent
+         };
       }catch(err) {
          console.log(err);
       }
@@ -53,7 +59,7 @@ class Etudiant {
       try{
          const sql = "UPDATE  etudiant set nom = ? , prenom = ? , date_naissance = ?, sexe = ? , id_filiere = ? WHERE id_etudiant = ?"
 
-         const [result] = await db.query(sql, [nom, prenom, sexe, id_filiere,id])
+         const [result] = await db.query(sql, [nom, prenom, date_naissance, sexe, id_filiere, id])
 
          return result
       }catch(err){
