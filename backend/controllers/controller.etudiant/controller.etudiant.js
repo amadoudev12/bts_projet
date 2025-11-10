@@ -10,11 +10,12 @@ const getStudents = async (req,res)=>{
         res.status(500).json({message:"erreur lors de la recuperation dans la base de donnée"});
     }
 }
+
 const getStudent = async (req,res)=>{
     try{
         const id = req.params.id;
         if(!id){
-            res.json({message: "entrez l'id"})
+            res.json({message: "entrez l'id"});
         }
         const studentGet = await Etudiant.getStudent(id);
         if (!studentGet || !studentGet.student) {
@@ -37,6 +38,7 @@ const getStudent = async (req,res)=>{
         res.status(500).json({message:"erreur au niveau de la base",err});
     }
 }
+
 const createStudent = async (req,res) => {
     try { 
         if(!req.body){
@@ -69,6 +71,7 @@ const deleteStudent = async (req,res) => {
         res.status(500).json({message:"erreur lors de la recuperation dans la base de donnée",err});
     }
 }
+
 const editStudent = async (req,res) => {
     try{
         const {nom, prenom, date_naissance, sexe, id_filiere} = req.body;
@@ -85,4 +88,5 @@ const editStudent = async (req,res) => {
     }
 }
 
-module.exports = {getStudents,getStudent, createStudent,deleteStudent,editStudent};
+
+module.exports = {getStudents, getStudent, createStudent, deleteStudent, editStudent};

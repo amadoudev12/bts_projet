@@ -12,7 +12,7 @@ class Note {
     }
     static async getNoteById (id){
         try{
-            const sql = "SELECT * FROM note WHERE id_etudiant = ?";
+            const sql = "SELECT matiere.nom_matiere, note.note,  matiere.coefficient FROM note LEFT JOIN matiere ON matiere.id_matiere = note.id_matiere WHERE id_etudiant = ?";
             const [rows] = await db.query(sql, [id]);
             return rows;
         }catch(err){
