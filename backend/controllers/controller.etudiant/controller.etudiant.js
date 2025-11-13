@@ -30,7 +30,7 @@ const getStudent = async (req,res)=>{
         console.log(studentGet.student);
         res.status(200).json({
             student:studentGet.student,
-            moyenne: moyenneStudent,
+            moyenne: moyenneStudent.moyenne,
             admis:admis
         });
     }catch(err){

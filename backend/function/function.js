@@ -11,8 +11,11 @@ exports.monyenne = (tab) => {
     console.log('la sum est',sum);
     console.log('la moyenne est',moyenne);
     console.log('le coeficient est',coeficient);
-    
-    return Math.round(moyenne);
+    const moyenneArrondi = Math.round(moyenne)
+    return {
+        moyenne: moyenneArrondi,
+        total:sum
+    };
 }
 
 exports.admisibility = (moy) => {

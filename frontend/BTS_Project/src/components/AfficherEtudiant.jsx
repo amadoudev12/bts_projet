@@ -1,8 +1,24 @@
 import React from "react";
 import {Link} from "react-router-dom"
+import noteService from "../api/noteService";
 export default function ResultCard({ data, setView }) {
   const { student, moyenne, admis } = data;
-  
+  const voirCollante = async ()=>{
+    try{
+      const res = await fetch(`http://localhost:5000/note/collante/${student.id_etudiant}`,{
+        headers: {
+          "Content-type":"application/pdf"
+        }
+      })
+      if(res.ok){
+        alert('collante telecharge')
+      }
+    }catch(err){
+      console.log(err);
+      alert('imposible de telecharcher la collante')
+      
+    }
+  }
   return (
     <div className="max-w-md mx-auto  bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
       <h2 className="text-2xl font-bold text-center text-indigo-600 mb-4">
@@ -33,6 +49,9 @@ export default function ResultCard({ data, setView }) {
       </div>
       <button onClick={()=>{setView(false)}}  className=" w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">
            Nouvelle  Consultation
+      </button>
+      <button onClick={()=>{voirCollante()}}  className=" w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">
+           Obtenir ma collante
       </button>
     </div>
   )
