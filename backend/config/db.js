@@ -7,6 +7,5 @@ const dbconfig = {
     password:process.env.PASSWORD,
     database:process.env.DATABASE
 };
-
 const db = mysql.createPool(dbconfig).promise();
 module.exports = db;
