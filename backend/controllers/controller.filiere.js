@@ -1,4 +1,4 @@
-const Filiere = require('../../models/model.filiere/model.filiere');
+const Filiere = require('../models/model.filiere');
 
 
 const getFilieres = async (req,res) => {

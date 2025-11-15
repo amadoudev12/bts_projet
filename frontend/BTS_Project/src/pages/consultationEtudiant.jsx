@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import etudiantService from '../api/etudiantService'
 import AfficherEtudiant from '../components/AfficherEtudiant'
+import { Link } from 'react-router-dom'
 
 export default function consultationEtudiant() {
     const [id_P, setId_P] = useState('')
@@ -23,6 +24,9 @@ export default function consultationEtudiant() {
         }
   return (
     <div>
+        <div className='absolute top-0 right-0 m-4 '>
+            <Link to='/inscription' className=" bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2.5 rounded-lg transition-colors">Se Connecter</Link>
+        </div>
         {
             !view && (
                 <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">

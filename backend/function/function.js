@@ -19,7 +19,7 @@ exports.monyenne = (tab) => {
 }
 
 exports.admisibility = (moy) => {
-    if(moy >= 10){
+    if(moy>=10){
         return 'admisible'
     }else{
         return 'echec'

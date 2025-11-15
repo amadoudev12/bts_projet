@@ -1,5 +1,5 @@
 const exprss = require('express');
-const { getNotes, createNote, deleteNote, editNote, getNoteById, genererPdf } = require('../../controllers/controller.note/controller.note');
+const { getNotes, createNote, deleteNote, editNote, getNoteById, genererPdf } = require('../controllers/controller.note');
 const router = exprss.Router();
 
 router.get('/',getNotes);

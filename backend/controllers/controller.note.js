@@ -1,8 +1,9 @@
 const ejs = require('ejs')
 const path = require('path')
-const { monyenne } = require('../../function/function');
-const Note = require('../../models/model.note/model.note');
-const pupeteer = require('puppeteer')
+const { monyenne } = require('../function/function');
+const Note = require('../models/model.note');
+const Etudiant = require('../models/model.etudiant');
+const puppeteer = require('puppeteer')
 const fs = require('fs')
 const os = require('os')
 
@@ -19,8 +20,6 @@ const getNoteById = async (req,res) =>  {
     try{
         const id = req.params.id;
         const notes = await Note.getNoteById(id)
-        //const {moyenne, total} = monyenne(notes)
-        //res.status(200).json({message:"les notes:", notes})
         res.status(200).json(notes)
     }catch(err){
         console.log(err);
@@ -34,26 +33,28 @@ const genererPdf = async (req,res) => {
         console.log(__dirname);
     try{
         const id = req.params.id;
-        const notes = await Note.getNoteById(id)
-        const {moyenne, total} = monyenne(notes)
-        const fichierEjs = path.join(__dirname,"../../views/pdf.ejs")
-        const html = await ejs.renderFile(fichierEjs,{notes:notes, moyenne:moyenne, total:total})
-        const browser = await pupeteer.launch({
+        const etudiant = await Etudiant.getStudent(id);
+        const notes = await Note.getNoteById(id);
+        console.log(notes);
+        const {moyenne, total} = monyenne(etudiant.noteStudent);
+        const fichierEjs = path.join(__dirname,"../views/pdf.ejs");
+        console.log(fichierEjs);
+        const html = await ejs.renderFile(fichierEjs,{notes:notes, moyenne:moyenne, total:total, etudiant:etudiant.student});
+        const browser = await puppeteer.launch({
             headless:true,
             userDataDir:tempDir
-        })
-        const page = await browser.newPage()
-        await page.setContent(html)
+        });
+        const page = await browser.newPage();
+        await page.setContent(html,{ waitUntil: "networkidle0" });
         const pdf = await page.pdf({
             format:'A4',
             printBackground:true,
             margin:{top:'20mm', bottom:"20mm"}
-        })
-        await browser.close()
-        res.setHeader("Content-Type", "application/pdf")
-        res.setHeader("Content-Disposition", "attachment; filename=collante.pdf")
-        res.send(pdf)
-
+        });
+        await browser.close();
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-Disposition", "attachment; filename=collante.pdf");
+        res.end(pdf);
         setTimeout(()=>{
             try{
                 fs.rmSync(tempDir,{recursive:true, force:true})

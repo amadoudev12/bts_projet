@@ -1,4 +1,4 @@
-const Matiere = require('../../models/model.matiere/model.matiere')
+const Matiere = require('../models/model.matiere')
 
 const getById = async (req, res) => {
     try{

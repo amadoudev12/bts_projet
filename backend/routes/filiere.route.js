@@ -1,5 +1,5 @@
 const express = require('express')
-const { getFilieres } = require('../../controllers/controller.filiere/controller.filiere')
+const { getFilieres } = require('../controllers/controller.filiere')
 const router = express.Router()
 
 

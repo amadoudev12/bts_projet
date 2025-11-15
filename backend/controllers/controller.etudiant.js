@@ -1,5 +1,5 @@
-const{monyenne, admisibility} = require('../../function/function')
-const Etudiant = require('../../models/model.etudiant/model.etudiant');
+const{monyenne, admisibility} = require('../function/function')
+const Etudiant = require('../models/model.etudiant');
 
 const getStudents = async (req,res)=>{
     try {
@@ -26,7 +26,8 @@ const getStudent = async (req,res)=>{
         }
         const noteStudent = studentGet.noteStudent;
         const moyenneStudent = monyenne(noteStudent);
-        const admis = admisibility(moyenneStudent)
+        const admis = admisibility(moyenneStudent.moyenne)
+        console.log(admis);
         console.log(studentGet.student);
         res.status(200).json({
             student:studentGet.student,

@@ -1,5 +1,5 @@
-const db = require('../../config/db');
-const { Uppercase } = require('../../function/function');
+const db = require('../config/db');
+const { Uppercase } = require('../function/function');
 
 class Etudiant { 
    static async getAll (){
