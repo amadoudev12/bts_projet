@@ -1,7 +1,7 @@
 const{monyenne, admisibility} = require('../function/function')
 const Etudiant = require('../models/model.etudiant');
 
-const getStudents = async (req,res)=>{
+const getStudentsController = async (req,res)=>{
     try {
         const students = await Etudiant.getAll();
         res.status(200).json({students});
@@ -11,7 +11,7 @@ const getStudents = async (req,res)=>{
     }
 }
 
-const getStudent = async (req,res)=>{
+const getStudentController  = async (req,res)=>{
     try{
         const id = req.params.id;
         if(!id){
@@ -40,7 +40,7 @@ const getStudent = async (req,res)=>{
     }
 }
 
-const createStudent = async (req,res) => {
+const createStudentController  = async (req,res) => {
     try { 
         if(!req.body){
             console.log('le body est vide');
@@ -55,7 +55,7 @@ const createStudent = async (req,res) => {
     }
 }
 
-const deleteStudent = async (req,res) => {
+const deleteStudentController  = async (req,res) => {
     try{
         const id = req.params.id;
         if(!id){
@@ -73,7 +73,7 @@ const deleteStudent = async (req,res) => {
     }
 }
 
-const editStudent = async (req,res) => {
+const editStudentController  = async (req,res) => {
     try{
         const {nom, prenom, date_naissance, sexe, id_filiere} = req.body;
         const id = req.params.id;
@@ -89,5 +89,19 @@ const editStudent = async (req,res) => {
     }
 }
 
+const getNumberStudentController  = async(req,res) => {
+    try{
+        const nombre = await Etudiant.studentCount()
+        console.log('le nombre est:', nombre)
+           return res.status(200).json({
+            success: true,
+            message: "Voici le compte",
+            nombre
+        });
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message:"erreur lors de la recuperation dans la base de donnée",err});
+    }
+}
 
-module.exports = {getStudents, getStudent, createStudent, deleteStudent, editStudent};
+module.exports = {getStudentsController, getStudentController , createStudentController , deleteStudentController , editStudentController , getNumberStudentController };
