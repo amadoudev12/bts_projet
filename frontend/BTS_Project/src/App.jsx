@@ -1,7 +1,7 @@
 
 import React  from "react";
 import { Link } from "react-router-dom";
-import AppRoutes from "./routes";
+import AppRoutes from "./routes/routes";
 function App() {
 
 
