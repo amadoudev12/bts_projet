@@ -11,7 +11,7 @@ const Login = async (req,res) =>{
         if(!utilisateur){
             return res.status(404).json({message:'utilisateur introuvable'})
         }
-        const hash = await bcrypt.compare(password, utilisateur.mot_passe)
+        const hash = await bcrypt.compare(utilisateur.mot_passe, password)
         if(!hash){
             return res.status(404).json({message:'mot de passe incorrect'})
         }else{
