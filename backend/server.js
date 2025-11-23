@@ -13,6 +13,7 @@ app.use('/note',require('../backend/routes/note.route'));
 app.use('/filiere',require('../backend/routes/filiere.route'));
 app.use('/matiere',require('../backend/routes/matiere.route'));
 app.use('/utilisateur',require('../backend/routes/utilisateur.route'));
+app.use('/dashboard',require('../backend/routes/dasboard.route'))
 
 app.listen(port, ()=>{
     console.log('le server est en marche ');
