@@ -5,6 +5,7 @@ const etudiantService = {
     getById: (id)  => axiosClient.get(`/etudiant/${id}`),
     Post : (data) => axiosClient.post('/etudiant/',data),
     delete : (id) => axiosClient.delete(`/etudiant/${id}`),
-    Edit : (id,data) => axiosClient.put(`/etudiant/${id}`,data)
+    Edit : (id,data) => axiosClient.put(`/etudiant/${id}`,data),
+    count: ()=>  axiosClient.get('/etudiant/count')
 }
 export default etudiantService

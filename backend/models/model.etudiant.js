@@ -66,6 +66,17 @@ class Etudiant {
          console.log(err);
       }
    }
+   static async studentCount () {
+      try {
+         const sql = "SELECT COUNT(*) AS total FROM etudiant";
+         const [rows] = await db.query(sql);
+         console.log(rows);
+         return rows[0]; 
+      } catch (err) {
+         console.log(err);
+         return err;
+      }
+   }
 }
 
 

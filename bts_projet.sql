@@ -44,32 +44,32 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`id_etudiant`, `nom`, `prenom`, `date_naissance`, `sexe`, `id_filiere`, `note`) VALUES
-('ADJE0903050001', 'Adjé', 'Emanuel', '2005-03-09', 'Homme', 5, NULL),
-('BAMA0709040001', 'Bamba', 'Aïcha', '2004-09-07', 'Femme', 4, NULL),
-('BLEJ2009050001', 'Blé', 'Joseph', '2005-09-20', 'Homme', 2, NULL),
-('COUM2209030001', 'Coulibaly', 'Mariame', '2003-09-22', 'Femme', 1, NULL),
-('DIAA0104040001', 'Diallo', 'Amadou', '2004-04-01', 'Homme', 1, NULL),
-('DIOM0811040001', 'Diomandé', 'Marc', '2004-11-08', 'Homme', 3, NULL),
-('DOUM1711040001', 'Doukouré', 'Mariam', '2004-11-17', 'Femme', 2, NULL),
-('FADL2205050001', 'Fadiga', 'Lamine', '2005-05-22', 'Homme', 4, NULL),
-('KAMJ0504050001', 'Kamara', 'Jean', '2005-04-05', 'Homme', 4, NULL),
-('KOFJ2307040001', 'Koffi', 'Jean', '2004-07-23', 'Homme', 2, NULL),
-('KOFS1712040001', 'Koffi', 'Sarah', '2004-12-17', 'Femme', 5, NULL),
-('KONF1210030001', 'Koné', 'Fatou', '2003-10-12', 'Femme', 1, NULL),
-('KOUA0205040001', 'Kouakou', 'Alice', '2004-05-02', 'Femme', 5, NULL),
-('KRAE1412040001', 'Kra', 'Esther', '2004-12-14', 'Femme', 3, NULL),
-('KRAM0202050001', 'Kramo', 'Mina', '2005-02-02', 'Femme', 3, NULL),
-('NDAH0810030001', 'N’dah', 'Patrick', '2003-10-08', 'Homme', 2, NULL),
-('NDAK2508040001', 'N’dahi', 'Kouadio', '2004-08-25', 'Homme', 5, NULL),
-('NIAT0103050001', 'Niang', 'Tania', '2005-03-01', 'Femme', 3, NULL),
-('SANG1503040001', 'Sangaré', 'Kady', '2004-03-15', 'Femme', 4, NULL),
-('SISS1501050001', 'Sissoko', 'Souleymane', '2005-01-15', 'Homme', 1, NULL),
-('TOUM1007040001', 'Touré', 'Moussa', '2004-07-10', 'Homme', 4, NULL),
-('TRAI0502050001', 'Traoré', 'Ibrahim', '2005-02-05', 'Homme', 1, NULL),
-('YAOA0212040001', 'Yao', 'Agnès', '2004-12-02', 'Femme', 2, NULL),
-('YAPF1004050001', 'Yapo', 'Francis', '2005-04-10', 'Homme', 5, NULL),
-('ZOUA1508040001', 'Diallo', 'Ange', '2004-08-15', 'Homme', 3, NULL);
+INSERT INTO `etudiant` (`id_etudiant`, `nom`, `prenom`, `date_naissance`, `sexe`, `id_filiere`) VALUES
+('ADJE0903050001', 'Adjé', 'Emanuel', '2005-03-09', 'Homme', 5,),
+('BAMA0709040001', 'Bamba', 'Aïcha', '2004-09-07', 'Femme', 4,),
+('BLEJ2009050001', 'Blé', 'Joseph', '2005-09-20', 'Homme', 2,),
+('COUM2209030001', 'Coulibaly', 'Mariame', '2003-09-22', 'Femme', 1,),
+('DIAA0104040001', 'Diallo', 'Amadou', '2004-04-01', 'Homme', 1,),
+('DIOM0811040001', 'Diomandé', 'Marc', '2004-11-08', 'Homme', 3,),
+('DOUM1711040001', 'Doukouré', 'Mariam', '2004-11-17', 'Femme', 2,),
+('FADL2205050001', 'Fadiga', 'Lamine', '2005-05-22', 'Homme', 4,),
+('KAMJ0504050001', 'Kamara', 'Jean', '2005-04-05', 'Homme', 4,),
+('KOFJ2307040001', 'Koffi', 'Jean', '2004-07-23', 'Homme', 2,),
+('KOFS1712040001', 'Koffi', 'Sarah', '2004-12-17', 'Femme', 5,),
+('KONF1210030001', 'Koné', 'Fatou', '2003-10-12', 'Femme', 1,),
+('KOUA0205040001', 'Kouakou', 'Alice', '2004-05-02', 'Femme', 5,),
+('KRAE1412040001', 'Kra', 'Esther', '2004-12-14', 'Femme', 3,),
+('KRAM0202050001', 'Kramo', 'Mina', '2005-02-02', 'Femme', 3,),
+('NDAH0810030001', 'N’dah', 'Patrick', '2003-10-08', 'Homme', 2,),
+('NDAK2508040001', 'N’dahi', 'Kouadio', '2004-08-25', 'Homme', 5,),
+('NIAT0103050001', 'Niang', 'Tania', '2005-03-01', 'Femme', 3,),
+('SANG1503040001', 'Sangaré', 'Kady', '2004-03-15', 'Femme', 4),
+('SISS1501050001', 'Sissoko', 'Souleymane', '2005-01-15', 'Homme', 1,),
+('TOUM1007040001', 'Touré', 'Moussa', '2004-07-10', 'Homme', 4,),
+('TRAI0502050001', 'Traoré', 'Ibrahim', '2005-02-05', 'Homme', 1,),
+('YAOA0212040001', 'Yao', 'Agnès', '2004-12-02', 'Femme', 2,),
+('YAPF1004050001', 'Yapo', 'Francis', '2005-04-10', 'Homme', 5,),
+('ZOUA1508040001', 'Diallo', 'Ange', '2004-08-15', 'Homme', 3,);
 
 -- --------------------------------------------------------
 
