@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardNav from '../components/DashboardNav'
 import etudiantService from '../api/etudiantService'
+import { Navigate } from 'react-router-dom'
 export default function dashboard() {
     const [count , setCount] = useState(0)
     useEffect(()=>{
@@ -16,6 +17,26 @@ export default function dashboard() {
         getCount()
         
     },[])
+    useEffect(()=>{
+        const getAutorize = async()=>{
+            const token = localStorage.getItem('token')
+            if(!token){
+                alert('non autoriser')
+                return <Navigate to="/login"/>
+            }
+            try{
+                const res = await fetch('http://localhost:5000/dashboard',{
+                    headers:{authorization : `Bearer ${token}`}
+                })
+                const data = await res.json()
+                console.log(data.message)
+            }catch(err){
+                console.log(err);
+                return <Navigate to='/login'/>
+            }
+        }
+        getAutorize()
+    },[Navigate])
   return (
     <div>
         <DashboardNav/>

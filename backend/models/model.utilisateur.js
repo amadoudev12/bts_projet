@@ -6,22 +6,12 @@ class User  {
             const sql = "SELECT * FROM utilisateur WHERE login = ? "
             const result = await db.query(sql,[login])
             return result[0]
-            // if(result[0].length>0){
-            //     return {
-            //         user: result[0],
-            //         success: true
-            //     }
-            // }else{
-            //     return {
-            //         success: false
-            //     }
-            // }
         }catch(err){}
     }
-    static async CreateUser ({nom_utilisateur, prenom_utilisateur, login, mot_passe}) {
+    static async CreateUser ({nom_utilisateur, prenom_utilisateur, login, hashedPassword}) {
         try{
             const sql = "INSERT INTO utilisateur (nom_utilisateur, prenom_utilisateur, login, mot_passe) VALUES (?, ?, ?, ?)"
-            const user = await db.query(sql,[nom_utilisateur, prenom_utilisateur, login, mot_passe])
+            const user = await db.query(sql,[nom_utilisateur, prenom_utilisateur, login, hashedPassword])
             return user[0]
         }catch(err){
             console.log(err);

@@ -9,7 +9,7 @@ const ListeEtudiant = lazy(()=> import('../pages/etudiantList'))
 const NotesPost = lazy(()=> import('../pages/notesPost'))
 const ConsultationEtudiant = lazy(()=> import('../pages/consultationEtudiant'))
 const Inscription = lazy(()=> import('../pages/inscription'))
-const Authentification = lazy(()=> import('../pages/authentification'))
+const Login = lazy(()=> import('../pages/login'))
 const DaShboard = lazy(()=> import('../pages/dashboard'))
 export default function AppRoutes() {
   return (
@@ -17,7 +17,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/" element={<ConsultationEtudiant/>}/>
             <Route path="/inscription" element={<Inscription/>}/>
-            <Route path="/login" element={<Authentification/>}/>
+            <Route path="/login" element={<Login/>}/>
             <Route element={<ProtectedRoute/>}>
               <Route path="/etudiants" element={<ListeEtudiant/>}/>
               <Route path="/etudiant/add" element={<AjouterEtudiant/>}/>
