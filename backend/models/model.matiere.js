@@ -13,5 +13,15 @@ class Matiere {
             throw err
         }
     }
+    static async getCount (){
+        try{
+            const sql = "SELECT COUNT(*) AS total_mat FROM matiere"
+            const [rows] = await db.query(sql);
+            console.log(rows);
+            return rows[0];
+        }catch(err){
+            console.log(err)
+        }
+    }
 }
 module.exports = Matiere

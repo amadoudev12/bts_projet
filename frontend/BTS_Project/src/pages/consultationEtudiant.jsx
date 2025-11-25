@@ -25,7 +25,7 @@ export default function consultationEtudiant() {
   return (
     <div>
         <div className='absolute top-0 right-0 m-4 '>
-            <Link to='/inscription' className=" bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2.5 rounded-lg transition-colors">Se Connecter</Link>
+            <Link to='/login' className=" bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2.5 rounded-lg transition-colors">Se Connecter</Link>
         </div>
         {
             !view && (

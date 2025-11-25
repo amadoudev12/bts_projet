@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
 LineChart,
 Line,
@@ -15,16 +15,20 @@ Legend,
 } from 'recharts';
 import { Search, Bell, Settings, LogOut, User, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
+import etudiantService from '../api/etudiantService'
+import matiereService from '../api/matiereService'
+import filiereService from '../api/filiereService'
 
 // --------------------------
 // Mock data
 // --------------------------
-const stats = [
-    { id: 1, title: "Étudiants", value: 1240, delta: "+6%" },
-    { id: 2, title: "Enseignants", value: 64, delta: "+1%" },
-    { id: 3, title: "Cours", value: 28, delta: "-2%" },
-    { id: 4, title: "Revenus (M)", value: 12.8, delta: "+14%" },
-];
+
+// const stats = [
+//     { id: 1, title: "Étudiants", value: 1240, delta: "+6%" },
+//     { id: 2, title: "Enseignants", value: 64, delta: "+1%" },
+//     { id: 3, title: "Cours", value: 28, delta: "-2%" },
+//     { id: 4, title: "Revenus (M)", value: 12.8, delta: "+14%" },
+// ];
 
 const lineData = [
     { month: 'Jan', inscriptions: 40, revenus: 3.2 },
@@ -132,7 +136,7 @@ function Sidebar({ active, onSelect }) {
   );
 }
 
-function StatCard({ title, value, delta }) {
+function StatCard({ title, value }) {
   return (
     <motion.div
       layout
@@ -143,7 +147,6 @@ function StatCard({ title, value, delta }) {
       <div className="text-sm text-gray-500">{title}</div>
       <div className="mt-2 flex items-baseline gap-3">
         <div className="text-2xl font-bold">{value}</div>
-        <div className="text-sm text-green-500">{delta}</div>
       </div>
     </motion.div>
   );
@@ -157,7 +160,27 @@ export default function AppDashboard() {
   const [active, setActive] = useState('dashboard');
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('Tous');
+  const [stats, setStats] = useState([])
+  useEffect(()=>{
+    const FetchCount = async ()=>{
+      const [etudiants, matieres, filiere] = await Promise.all([
+        etudiantService.count(),
+        matiereService.getCountMat(),
+        filiereService.getCountFil
+      ])
 
+      const statsFinale = [
+        { title: "etudiant", value: etudiants.data.nombre.total },
+        { title: "matiere", value: matieres.data.result.total_mat },
+        //{ title: "filiere", value: filieres.data.result.total_filiere}
+      ]
+
+      setStats(statsFinale)
+    }
+    FetchCount()
+  },[])
+  console.log(stats);
+  
   const filteredRows = useMemo(() => {
     return tableRows.filter((r) => {
       const matchesQuery = r.name.toLowerCase().includes(query.toLowerCase()) || r.filiere.toLowerCase().includes(query.toLowerCase());
@@ -179,7 +202,7 @@ export default function AppDashboard() {
           {/* Stats cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {stats.map((s) => (
-              <StatCard key={s.id} title={s.title} value={s.value} delta={s.delta} />
+              <StatCard key={s.title} title={s.title} value={s.value} delta={s.delta} />
             ))}
           </div>
 
@@ -300,7 +323,7 @@ export default function AppDashboard() {
             </div>
           </div>
 
-          <footer className="text-xs text-gray-500 text-center py-6">Made with ♥ for ton projet BTS — Verno</footer>
+          <footer className="text-xs text-gray-500 text-center py-6"> ton projet BTS — Nero</footer>
         </main>
       </div>
     </div>

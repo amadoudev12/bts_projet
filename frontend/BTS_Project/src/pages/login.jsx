@@ -16,7 +16,7 @@ export default function Authentification() {
             if(res.data.utilisateur){
                 localStorage.setItem('token',res.data.token)
                 alert(res.data.message)
-                navigate('/etudiants')
+                navigate('/dashboard')
             }else{
                 alert('veuillez entrez des donnees correctes')
             }

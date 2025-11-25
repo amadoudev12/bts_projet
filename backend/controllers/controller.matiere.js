@@ -9,5 +9,15 @@ const getById = async (req, res) => {
         console.log(err);
     }
 }
+const getCountController = async (req, res) => {
+    try{
+        const result = await Matiere.getCount()
+        res.status(200).json({result})
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err)
+    }
+}
 
-module.exports = {getById}
+
+module.exports = {getById, getCountController}

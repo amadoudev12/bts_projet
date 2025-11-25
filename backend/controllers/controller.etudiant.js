@@ -93,11 +93,7 @@ const getNumberStudentController  = async(req,res) => {
     try{
         const nombre = await Etudiant.studentCount()
         console.log('le nombre est:', nombre)
-           return res.status(200).json({
-            success: true,
-            message: "Voici le compte",
-            nombre
-        });
+           return res.status(200).json({nombre});
     }catch(err){
         console.log(err);
         res.status(500).json({message:"erreur lors de la recuperation dans la base de donnée",err});
