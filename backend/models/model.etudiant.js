@@ -66,6 +66,15 @@ class Etudiant {
          console.log(err);
       }
    }
+   static async AddMoy(id, moy){
+      try{
+         const sql = "UPDATE  etudiant set moyenne = ? WHERE id_etudiant = ?"
+         const [result] = await db.query(sql, [id,moy])
+         return result
+      }catch(err){
+         console.log(err);
+      }
+   }
    static async studentCount () {
       try {
          const sql = "SELECT COUNT(*) AS total FROM etudiant";

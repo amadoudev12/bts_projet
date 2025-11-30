@@ -5,7 +5,6 @@ import ProtectedRoute  from "./protected.route"
 
 
 const AjouterEtudiant = lazy(()=> import('../pages/ajouterEtudiant'))
-const ListeEtudiant = lazy(()=> import('../pages/etudiantList'))
 const NotesPost = lazy(()=> import('../pages/notesPost'))
 const ConsultationEtudiant = lazy(()=> import('../pages/consultationEtudiant'))
 const Inscription = lazy(()=> import('../pages/inscription'))
@@ -19,7 +18,6 @@ export default function AppRoutes() {
             <Route path="/inscription" element={<Inscription/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route element={<ProtectedRoute/>}>
-              <Route path="/etudiants" element={<ListeEtudiant/>}/>
               <Route path="/etudiant/add" element={<AjouterEtudiant/>}/>
               <Route path="/etudiant/note/add/:id" element={<NotesPost/>}/>
               <Route path="/dashboard" element={<DaShboard/>}/>

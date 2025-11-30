@@ -1,6 +1,6 @@
 const{monyenne, admisibility} = require('../function/function')
 const Etudiant = require('../models/model.etudiant');
-
+const Note = require('../models/model.note')
 const getStudentsController = async (req,res)=>{
     try {
         const students = await Etudiant.getAll();
@@ -39,7 +39,18 @@ const getStudentController  = async (req,res)=>{
         res.status(500).json({message:"erreur au niveau de la base",err});
     }
 }
-
+const addMoyenneController = async (req,res)=>{
+    try{
+        const id = req.params.id
+        const note = await Note.getNoteById(id)
+        const moyenne = monyenne(note)
+        
+        res.json({moyenne})
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message:"erreur au niveau de la base",err});
+    }
+}
 const createStudentController  = async (req,res) => {
     try { 
         if(!req.body){
@@ -100,4 +111,4 @@ const getNumberStudentController  = async(req,res) => {
     }
 }
 
-module.exports = {getStudentsController, getStudentController , createStudentController , deleteStudentController , editStudentController , getNumberStudentController };
+module.exports = {getStudentsController, getStudentController , createStudentController , deleteStudentController , editStudentController , getNumberStudentController, addMoyenneController };

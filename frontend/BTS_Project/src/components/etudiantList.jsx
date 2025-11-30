@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import etudiantService from '../api/etudiantService';
 import {Link} from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
-import FormEdit from '../components/EditForm';
+import FormEdit from './EditForm';
 
-export default function EtudiantList() {
+export default function EtudiantList({filter}) {
     const [etudiants, setEtudiants] = useState([])
-    const [modifier, setModifier] = useState(false)
-    const fonctionMod = async () => {
-      setModifier(true)
+    //const [modifier, setModifier] = useState(false)
+    const [etudiantAModifier, setEtudiantAModifier] = useState(null)
+    const [etudiantFiltre, setEtudiantFilter] = useState([])
+    const fonctionMod = async (id) => {
+      setEtudiantAModifier(id)
     }
     const deleteEtudiant = async (id) => {
       try {
@@ -31,9 +33,16 @@ export default function EtudiantList() {
       }
       getEtudiants()
     },[])
+    useEffect(()=>{
+      if(filter =='tous'){
+        setEtudiantFilter(etudiants)
+      }else{
+        setEtudiantFilter(etudiants.filter((etudiant)=>(etudiant.nom_filiere == filter)))
+      }
+    },[filter, etudiants])
   return (
     <>
-    <div className="max-w-[100vh] mx-auto">
+    <div className="max-w-[100vh] mx-auto overflow-auto">
     <div className="relative flex flex-col  h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-slate-700 bg-white rounded-none bg-clip-border">
             <div className="flex items-center justify-between ">
@@ -107,7 +116,7 @@ export default function EtudiantList() {
             </thead>
             <tbody>
                 {
-                  etudiants.map((etudiant)=>(
+                  etudiantFiltre.map((etudiant)=>(
                     <tr key={etudiant.id_etudiant}>
                       <td className="p-4 border-b border-slate-200">
                         <div className="flex items-center gap-3">
@@ -194,7 +203,7 @@ export default function EtudiantList() {
                                   </span>
                                 </Link>
                                 {
-                                  modifier && (
+                                  etudiantAModifier === etudiant.id_etudiant && (
                                   <div><FormEdit etudiant={etudiant}/></div>
                                   )
                                 }
